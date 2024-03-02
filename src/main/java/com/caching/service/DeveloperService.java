@@ -21,6 +21,7 @@ public class DeveloperService {
     public List<Developer> getAllDevelopers() {
         try {
             List<Developer> developers = developerRepo.findAll();
+            Thread.sleep(5000); // Added sleep call to increase the normal execution time
             log.info("Developers List: {}", developers.toString());
             return developers;
         } catch (Exception e) {

@@ -1,0 +1,12 @@
+hazelcast:
+  network:
+    join:
+      multicast:
+        enabled: true
+  map:
+    items:
+      time-to-live-seconds: 120
+      eviction:
+        eviction-policy: LRU
+        max-size-policy: PER_NODE
+        size: 1000

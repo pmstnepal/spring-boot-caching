@@ -1,17 +1,17 @@
 package com.caching.controller;
 
-import com.caching.constants.CachingConstants;
 import com.caching.entity.Developer;
 import com.caching.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/developer")
@@ -19,11 +19,12 @@ public class DeveloperController {
     private final DeveloperService developerService;
 
     @GetMapping("/getAllDeveloper")
-    public ResponseEntity<Object> getAllDevelopers() {
+    @Cacheable(value = "developerCache")
+    public List<Developer> getAllDevelopers() {
+        long start = System.currentTimeMillis();
+        log.info("Execution started: {}", start);
         List<Developer> developers = developerService.getAllDevelopers();
-        if(developers != null)
-            return new ResponseEntity<>(developers, HttpStatus.OK);
-        else
-            throw new RuntimeException(CachingConstants.INTERNAL_SERVER_ERROR);
+        log.info("Execution completed, cost: {}", (System.currentTimeMillis() - start));
+        return developers;
     }
 }
