@@ -10,3 +10,7 @@ hazelcast:
         eviction-policy: LRU
         max-size-policy: PER_NODE
         size: 1000
+  serialization:
+    serializers:
+      - class-name: com.caching.service.DeveloperSerializer
+        type-class: com.caching.entity.Developer
