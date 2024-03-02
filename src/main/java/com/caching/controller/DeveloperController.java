@@ -24,7 +24,7 @@ public class DeveloperController {
         long start = System.currentTimeMillis();
         log.info("Execution started: {}", start);
         List<Developer> developers = developerService.getAllDevelopers();
-        log.info("Execution completed, cost: {}", (System.currentTimeMillis() - start));
+        log.info("Execution completed, cost: {} ms", (System.currentTimeMillis() - start));
         return developers;
     }
 }
